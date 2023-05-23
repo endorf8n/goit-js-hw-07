@@ -29,12 +29,12 @@ function createGalleryMarkup(images) {
 function onImageClick(event) {
   event.preventDefault();
 
-  if (!event.target.classList.contains("gallery__image")) {
+  if (event.target.nodeName !== "IMG") {
     return;
   }
 
   const instance = basicLightbox.create(
-    `<img src="${event.target.dataset.source}" width="800" height="600">`
+    `<img src="${event.target.dataset.source}" width="1280" height="auto">`
   );
 
   instance.show(() => {
@@ -43,9 +43,8 @@ function onImageClick(event) {
 
   function onEscapePress(event) {
     if (event.code === "Escape") {
-      instance.close(() => {
-        window.removeEventListener("keydown", onEscapePress);
-      });
+      instance.close();
+      window.removeEventListener("keydown", onEscapePress);
     }
   }
 }
